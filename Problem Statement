@@ -1,0 +1,33 @@
+
+Enterprise Policy & Compliance Assistant
+1.  Context
+What we are testing
+1. Decomposition skills — given a real problem, how does the candidate split it into the right shape of system?
+2. Framework judgement — why this orchestration framework and not the others?
+3. Memory architecture — short-term, long-term, per-session, cross-session, summarisation.
+4. Document processing depth — ingestion, parsing, chunking, retrieval, citation.
+5. Telemetry — token consumption, total response time, tool calls, error logging.
+ 
+2.  The Problem Statement
+Build a backend system — an Enterprise Policy & Compliance Assistant — that helps employees of a mid-sized enterprise navigate internal policies, regulatory guidance, and general workplace queries through natural-language conversation.
+2.1  Business Scenario
+Assume the candidate is building this for the legal and compliance function of a fictional company, ACME Industries. The compliance team owns a library of policy documents and regulatory PDFs (DPDP, GDPR-style notices, ISO clauses, internal SOPs). Today, employees ping the compliance team on Slack for every clarification — "Can I share customer data with this vendor?", "What is our retention policy for HR records?", "What did the regulator say in last week's circular?". The team is drowning. The assistant must answer these questions accurately, with citations, while remembering the user's context across the conversation.
+2.2  Functional Requirements
+The system must support three distinct query patterns. How the candidate satisfies them — single agent, multiple agents, routed, or otherwise — is entirely the candidate's call to make and defend.
+•	Document grounded Q&A (RAG). Given an ingested corpus of policy and regulatory documents, the system must answer questions with grounded, cited responses. Users can also upload a new document mid-conversation and ask questions about it without re-indexing the full corpus.
+•	YouTube Q&A. Given a YouTube URL and a question, the system must answer using the video's content — for example, a recorded compliance training, a regulator briefing, or a vendor explainer.
+•	Web search. For questions that require current or external information not present in the corpus — "What was the latest amendment to the DPDP Act?", "What did SEBI announce yesterday?" — the system must fetch and synthesise live web results with sources.
+
+Beyond those three, the system must also:
+•	Support multi-turn conversation — follow-up questions like "and what about for EU employees?" must resolve correctly against earlier turns.
+•	Handle general-knowledge or conversational questions ("hi", "explain what GDPR is") without invoking retrieval or web search — the system must decide when each capability is and isn't needed.
+•	Be resilient to a single LLM or tool call failing — a transient error should not kill the conversation.
+•	Emit telemetry for every request — at minimum: token consumption, total response generation time, tool calls made, and errors with stack traces.
+2.3  Non-Functional Requirements
+•	Document types in scope for ingestion: PDF, DOCX, TXT.
+•	The system must be deployable in a way the panel can actually run during the walkthrough — local docker, a notebook with a tunnel, a cloud endpoint, all acceptable.
+•	Hosted LLMs only. No fine-tuning.
+6.  Rules & Constraints
+•	Hosted LLM APIs only — Azure OpenAI, OpenAI, Anthropic, Gemini, Bedrock, or equivalent.
+•	Use of AI coding assistants (Copilot, Cursor, Claude Code, etc.) is allowed and expected. The candidate is still responsible for explaining every line of code they ship.
+•	Open-source libraries are encouraged. Copy-pasting a public tutorial wholesale is not acceptable — adapt and own the design.
